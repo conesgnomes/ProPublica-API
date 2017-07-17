@@ -11,10 +11,14 @@ export class SearchService {
   constructor(private http: Http) { }
 
   headers = new Headers();
+  legislators: any[];
 
-  getRepresentatives(zip: number) {
+  getRepresentatives(state: string) {
     this.headers.append('X-API-Key', PROPUBLICA_API_KEY);
-    this.http.get('https://api.propublica.org/congress/v1/115/senate/members.json',
-    { headers: this.headers });
+    this.http.get(`https://api.propublica.org/congress/v1/members/senate/${state}/current.json`,
+    { headers: this.headers }).subscribe((data) => {
+      this.legislators = data.json().results;
+      console.log(this.legislators);
+    });
   }
 }

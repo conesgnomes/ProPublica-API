@@ -9,16 +9,16 @@ import { SearchService } from '../search.service'
 })
 export class HomepageComponent implements OnInit {
 
-newZip: number;
+newState: string;
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
   }
 
-  submitForm(zip: number) {
-    this.newZip = zip;
-    this.searchService.getRepresentatives(this.newZip);
+  submitForm(state: string) {
+    this.newState = state;
+    this.searchService.getRepresentatives(this.newState);
   }
 
 }
