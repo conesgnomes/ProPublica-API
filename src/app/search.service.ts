@@ -10,13 +10,13 @@ export class SearchService {
 
   constructor(private http: Http) { }
 
-  headers = new Headers();
   legislators: any[];
 
   getRepresentatives(state: string) {
-    this.headers.append('X-API-Key', PROPUBLICA_API_KEY);
+    var headers = new Headers();
+    headers.append('X-API-Key', PROPUBLICA_API_KEY);
     this.http.get(`https://api.propublica.org/congress/v1/members/senate/${state}/current.json`,
-    { headers: this.headers }).subscribe((data) => {
+    { headers: headers }).subscribe((data) => {
       this.legislators = data.json().results;
       console.log(this.legislators);
     });
