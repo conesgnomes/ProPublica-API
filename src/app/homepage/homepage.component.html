@@ -1,0 +1,6 @@
+<h2>Find your political deets:</h2>
+<div class="input-group">
+  <label>Zip:</label>
+  <input #newZip>
+  <button (click)="submitForm(newZip.value); newZip.value = ''">Search</button>
+</div>
