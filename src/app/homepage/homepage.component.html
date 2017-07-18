@@ -9,3 +9,11 @@
   <input #newLocation>
   <button (click)="submitForm(newChamber.value, newLocation.value); newLocation.value = ''">Search</button>
 </div>
+<h3>Your Senators/Representative(s) are:</h3>
+<div *ngFor="let legislator of legislators" class="output">
+  <ul>
+    <li>Name: {{legislator.name}}</li>
+    <li>Party: {{legislator.party}}</li>
+    <li>District: {{legislator.district}}</li>
+  </ul>
+</div>

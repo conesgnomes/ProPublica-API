@@ -14,11 +14,13 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
   }
 
+  legislators: any[] = null;
+
   submitForm(chamber: string, inputLocation: string) {
     if (chamber === 'senate') {
-      this.searchService.getSenators(inputLocation);
+      this.legislators = this.searchService.getSenators(inputLocation);
     } else {
-      this.searchService.getReps(inputLocation);
+      this.legislators = this.searchService.getReps(inputLocation);
     }
   }
 }

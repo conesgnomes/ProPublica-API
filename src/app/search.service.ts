@@ -13,11 +13,10 @@ export class SearchService {
 
   constructor(private http: Http) { }
 
-  legislators: any[];
-  zipsInState: any[];
   districts: any[];
 
   getSenators(inputLocation: string) {
+    let legislators: any[] = [];
     let newLocation: string;
     var headers = new Headers();
     headers.append('X-API-Key', PROPUBLICA_API_KEY);
@@ -33,12 +32,15 @@ export class SearchService {
     }
     this.http.get(`https://api.propublica.org/congress/v1/members/senate/${newLocation}/current.json`,
       { headers: headers }).subscribe((data) => {
-        this.legislators = data.json().results;
-        console.log(this.legislators);
+        legislators.push(data.json().results[0]);
+        legislators.push(data.json().results[1]);
       });
+      // console.log(legislators);
+      return legislators;
     }
 
   getReps(inputLocation: string) {
+    let legislators: any[] = [];
     let stateAbbrev: string;
     var headers = new Headers();
     headers.append('X-API-Key', PROPUBLICA_API_KEY);
@@ -55,13 +57,14 @@ export class SearchService {
       this.districts = districts.getDistricts(inputLocation).length === 0 ? [1] : districts.getDistricts(inputLocation);
       stateAbbrev = zipcodes.lookup(inputLocation).state;
     }
+
     this.districts.forEach((district) => {
-      this.http.get(`https://api.propublica.org/congress/v1/members/house/${stateAbbrev}/${district}/current.json`,
+      return this.http.get(`https://api.propublica.org/congress/v1/members/house/${stateAbbrev}/${district}/current.json`,
       { headers: headers }).subscribe((data) => {
-        this.legislators = data.json().results;
-        console.log(this.legislators);
+        legislators.push(data.json().results[0]);
       });
     })
-
+    console.log(legislators);
+    return legislators;
   }
 }
