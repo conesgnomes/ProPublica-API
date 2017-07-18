@@ -15,5 +15,7 @@
     <li>Name: {{legislator.name}}</li>
     <li>Party: {{legislator.party}}</li>
     <li *ngIf="house">District: {{legislator.district}}</li>
+    <button *ngIf="house" (click)="saveLegislator(legislator.name, legislator.party, legislator.district)">Save Legislator</button>
+    <button *ngIf="senate" (click)="saveLegislator(legislator.name, legislator.party, '')">Save Legislator</button>
   </ul>
 </div>
