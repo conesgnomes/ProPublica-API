@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../search.service';
 import * as madison from 'madison';
+import * as congressionalDistricts from 'congressional-districts';
+import * as zipcodes from 'zipcodes';
 
 @Component({
   selector: 'app-homepage',
@@ -10,21 +12,25 @@ import * as madison from 'madison';
 })
 export class HomepageComponent implements OnInit {
 
-newState: string;
+newLocation: string;
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
   }
 
-  submitForm(state: string) {
-    let stringLength = state.length;
-    console.log(stringLength);
-    if (stringLength > 2) {
-      this.newState = madison.getStateAbbrevSync(state);
-    } else {
-      this.newState = state;
+  submitForm(chamber: string, inputLocation: string) {
+    if ((chamber === 'senate') && (isNaN(parseFloat(inputLocation)))) {
+      let stringLength = inputLocation.length;
+      // console.log(stringLength);
+      if (stringLength > 2) {
+        this.newLocation = madison.getStateAbbrevSync(inputLocation);
+      } else {
+        this.newLocation = inputLocation;
+      }
+    } else if ((chamber === 'senate') && (!isNaN(parseFloat(inputLocation)))) {
+      this.newLocation = zipcodes.lookup(inputLocation).state;
     }
-    this.searchService.getSenators(this.newState);
+    this.searchService.getSenators(this.newLocation);
   }
 }

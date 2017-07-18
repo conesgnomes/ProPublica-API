@@ -1,6 +1,11 @@
 <h2>Find your political deets:</h2>
 <div class="input-group">
-  <label>Zip:</label>
-  <input #newZip>
-  <button (click)="submitForm(newZip.value); newZip.value = ''">Search</button>
+  <label>Pick your chamber:</label>
+  <select #newChamber>
+    <option value="senate">Senate</option>
+    <option value="house">House of Representatives</option>
+  </select>
+  <label>Enter a State or Zip Code:</label>
+  <input #newLocation>
+  <button (click)="submitForm(newChamber.value, newLocation.value); newLocation.value = ''">Search</button>
 </div>
