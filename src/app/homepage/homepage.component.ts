@@ -16,10 +16,13 @@ export class HomepageComponent implements OnInit {
 
   legislators: any[] = null;
 
+  house: boolean = false;
+
   submitForm(chamber: string, inputLocation: string) {
     if (chamber === 'senate') {
       this.legislators = this.searchService.getSenators(inputLocation);
     } else {
+      this.house = true;
       this.legislators = this.searchService.getReps(inputLocation);
     }
   }

@@ -14,6 +14,6 @@
   <ul>
     <li>Name: {{legislator.name}}</li>
     <li>Party: {{legislator.party}}</li>
-    <li>District: {{legislator.district}}</li>
+    <li *ngIf="house">District: {{legislator.district}}</li>
   </ul>
 </div>
