@@ -1,21 +1,28 @@
-<h2>Find your political deets:</h2>
-<div class="input-group">
-  <label>Pick your chamber:</label>
-  <select #newChamber>
-    <option value="senate">Senate</option>
-    <option value="house">House of Representatives</option>
-  </select>
-  <label>Enter a State or Zip Code:</label>
-  <input #newLocation>
-  <button (click)="submitForm(newChamber.value, newLocation.value); newLocation.value = ''">Search</button>
-</div>
-<h3>Your Senators/Representative(s) are:</h3>
-<div *ngFor="let legislator of legislators" class="output">
-  <ul>
-    <li>Name: {{legislator.name}}</li>
-    <li>Party: {{legislator.party}}</li>
-    <li *ngIf="house">District: {{legislator.district}}</li>
-    <button *ngIf="house" (click)="saveLegislator(legislator.name, legislator.party, legislator.district)">Save Legislator</button>
-    <button *ngIf="senate" (click)="saveLegislator(legislator.name, legislator.party, '')">Save Legislator</button>
-  </ul>
-</div>
+<body>
+  <div class="hero">
+    <h1>
+      Legislator Locator
+    </h1>
+  </div>
+  <h2>Find your political deets:</h2>
+  <div class="input-group">
+    <label>Pick your chamber:</label>
+    <select #newChamber>
+      <option value="senate">Senate</option>
+      <option value="house">House of Representatives</option>
+    </select>
+    <label>Enter a State or Zip Code:</label>
+    <input #newLocation>
+    <button (click)="submitForm(newChamber.value, newLocation.value); newLocation.value = ''">Search</button>
+  </div>
+  <h3>Your Senators/Representative(s) are:</h3>
+  <div *ngFor="let legislator of legislators" class="output">
+    <ul>
+      <li>Name: {{legislator.name}}</li>
+      <li>Party: {{legislator.party}}</li>
+      <li *ngIf="house">District: {{legislator.district}}</li>
+      <button *ngIf="house" (click)="saveLegislator(legislator.name, legislator.party, legislator.district)">Save Legislator</button>
+      <button *ngIf="senate" (click)="saveLegislator(legislator.name, legislator.party, '')">Save Legislator</button>
+    </ul>
+  </div>
+</body>

@@ -6,7 +6,7 @@ import { Legislator } from '../legislator.model';
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css'],
+  styleUrls: ['./homepage.component.scss'],
   providers: [SearchService, LegislatorService]
 })
 export class HomepageComponent implements OnInit {
