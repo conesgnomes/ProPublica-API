@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../search.service';
 import * as madison from 'madison';
-import * as congressionalDistricts from 'congressional-districts';
 import * as zipcodes from 'zipcodes';
+import * as districts from 'congressional-districts';
+import * as zcta from 'us-zcta-counties';
 
 @Component({
   selector: 'app-homepage',
@@ -13,6 +14,8 @@ import * as zipcodes from 'zipcodes';
 export class HomepageComponent implements OnInit {
 
 newLocation: string;
+zipsInState: any[];
+districts: any[];
 
   constructor(private searchService: SearchService) { }
 
@@ -20,17 +23,35 @@ newLocation: string;
   }
 
   submitForm(chamber: string, inputLocation: string) {
-    if ((chamber === 'senate') && (isNaN(parseFloat(inputLocation)))) {
-      let stringLength = inputLocation.length;
-      // console.log(stringLength);
-      if (stringLength > 2) {
-        this.newLocation = madison.getStateAbbrevSync(inputLocation);
-      } else {
-        this.newLocation = inputLocation;
-      }
-    } else if ((chamber === 'senate') && (!isNaN(parseFloat(inputLocation)))) {
-      this.newLocation = zipcodes.lookup(inputLocation).state;
+    if (chamber === 'senate') {
+      this.searchService.getSenators(inputLocation);
     }
-    this.searchService.getSenators(this.newLocation);
   }
 }
+
+
+
+
+    // } else if ((chamber === 'house') && (isNaN(parseFloat(inputLocation)))) {
+    //   const stringLength = inputLocation.length;
+    //   if (stringLength > 2) {
+    //     this.newLocation = madison.getStateAbbrevSync(inputLocation);
+    //   } else {
+    //     this.newLocation = inputLocation;
+    //   }
+    //   this.zipsInState = zcta.find({state: this.newLocation});
+    //   this.zipsInState.forEach(function(zip) {
+    //     this.districts.push(districts.getDistricts(zip));
+    //   });
+    //   this.districts.forEach((district) => {
+    //     this.searchService.getReps(this.newLocation, district);
+    //   });
+    // } else {
+    //   this.districts = districts.getDistricts(inputLocation);
+    //   this.newLocation = zipcodes.lookup(inputLocation).state;
+    //   this.districts.forEach((district) => {
+    //     this.searchService.getReps(this.newLocation, district);
+    //   });
+    //   console.log(this.districts);
+    // }
+// }
