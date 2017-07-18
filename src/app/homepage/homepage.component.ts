@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../search.service'
+import { SearchService } from '../search.service';
+import * as madison from 'madison';
 
 @Component({
   selector: 'app-homepage',
@@ -17,8 +18,13 @@ newState: string;
   }
 
   submitForm(state: string) {
-    this.newState = state;
-    this.searchService.getRepresentatives(this.newState);
+    let stringLength = state.length;
+    console.log(stringLength);
+    if (stringLength > 2) {
+      this.newState = madison.getStateAbbrevSync(state);
+    } else {
+      this.newState = state;
+    }
+    this.searchService.getSenators(this.newState);
   }
-
 }

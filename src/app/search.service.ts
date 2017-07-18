@@ -12,7 +12,7 @@ export class SearchService {
 
   legislators: any[];
 
-  getRepresentatives(state: string) {
+  getSenators(state: string) {
     var headers = new Headers();
     headers.append('X-API-Key', PROPUBLICA_API_KEY);
     this.http.get(`https://api.propublica.org/congress/v1/members/senate/${state}/current.json`,
